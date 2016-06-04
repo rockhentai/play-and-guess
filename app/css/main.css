@@ -28,6 +28,109 @@ body {
     width: 96px;
     height: 96px;
     margin: 0 auto;
+    margin-bottom: 20px;
     border-radius: 50%;
     background: url(../img/rock.jpg) no-repeat;
     background-size: cover; }
+  .loginDiv input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 57px;
+    margin-bottom: 10px;
+    padding: 14px 16px;
+    font-size: 20px;
+    line-height: 1.33333;
+    border-radius: 6px;
+    color: #333;
+    background: #fff;
+    border: 1px solid #ddd;
+    outline: none;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; }
+    .loginDiv input:focus {
+      border-color: #66afe9;
+      box-shadow: rgba(102, 175, 233, 0.6); }
+  .loginDiv .btn {
+    width: 120px;
+    height: 40px;
+    margin: 0 auto;
+    line-height: 40px;
+    background: #0090FF;
+    color: #fff;
+    font-size: 16px;
+    border: 1px solid #0090FF;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer; }
+    .loginDiv .btn:hover {
+      background: #0082e6;
+      border-color: #007cdb; }
+
+.main {
+  width: 800px;
+  margin: 0 auto;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3); }
+  .header {
+    width: 100%;
+    height: 60px;
+    background: #0090FF;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px; }
+    .header span {
+      display: inline-block;
+      height: 50px;
+      margin: 5px 10px; }
+      .header span.user-avatar {
+        width: 50px;
+        border-radius: 50%;
+        background-image: url(../img/rock.jpg);
+        background-repeat: no-repeat;
+        background-size: cover; }
+      .header span.leave {
+        float: right;
+        padding-right: 30px;
+        line-height: 50px;
+        color: #fff;
+        font-size: 16px;
+        background-image: url(../img/arrow.png);
+        background-position: center right;
+        background-repeat: no-repeat;
+        background-size: 30px 30px;
+        cursor: pointer; }
+  .wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    height: 540px;
+    padding: 10px;
+    background: #f7f7f7;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-bottom: 20px; }
+    .paint {
+      float: left;
+      height: 450px;
+      width: 550px;
+      margin-right: 10px; }
+      .paint .hb {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        width: 100%;
+        height: 100%;
+        background: #fff; }
+    .sidebar {
+      float: left;
+      height: 450px;
+      width: 220px; }
+      .sidebar .tools {
+        width: 100%; }
+        .colors {
+          width: 100%;
+          height: 60px; }
+          .colors .color {
+            display: block;
+            float: left;
+            width: 30px;
+            height: 30px;
+            margin: 0;
+            padding: 0; }

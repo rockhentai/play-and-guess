@@ -1,3 +1,17 @@
+$border-radius:6px;
+
+@mixin box-shadow {
+	box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+}
+
+@mixin box-block {
+	padding:40px 40px;
+  background: #f7f7f7;
+  margin:20px auto;
+  border-radius: 2px;
+	@include box-shadow;
+}
+
 body,div,p,h1,h2,h3,h4,h5,ul,li,ol {
 	margin:0;
 	padding:0;
@@ -20,25 +34,170 @@ body {
 	background: #fff;
 }
 
+// loginDiv
 .loginDiv {
   width:280px;
   height: 320px;
-  padding:40px 40px;
-  background: #f7f7f7;
-  margin:20px auto;
-  border-radius: 2px;
-  box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+  @include box-block ;
 
   .mask {
     width: 96px;
     height: 96px;
     margin:0 auto;
+		margin-bottom: 20px;
     border-radius: 50%;
     background: url(../img/rock.jpg) no-repeat;
     background-size: cover;
   }
 
   input {
-    
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+    height:57px;
+		margin-bottom: 10px;
+		padding:14px 16px;
+		font-size: 20px;
+		line-height: 1.33333;
+		border-radius: $border-radius;
+		color:#333;
+		background: #fff;
+		border:1px solid #ddd;
+		outline: none;
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+		transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+		&:focus {
+			border-color:#66afe9;
+			box-shadow: rgba(102,175,233,0.6);
+		}
   }
+
+	.btn {
+		width: 120px;
+		height: 40px;
+		margin:0 auto;
+		line-height: 40px;
+		background: #0090FF;
+		color:#fff;
+		font-size: 16px;
+		border:1px solid #0090FF;
+		border-radius: $border-radius;
+		text-align: center;
+		cursor: pointer;
+
+		&:hover {
+			background: #0082e6;
+			border-color: #007cdb;
+		}
+	}
+}
+
+// main
+.main {
+	width: 800px;
+	margin:0 auto;
+	@include box-shadow;
+
+	@at-root {
+		.header {
+			width: 100%;
+			height: 60px;
+			background: #0090FF;
+			border-top-left-radius: 6px;
+			border-top-right-radius: 6px;
+
+			span {
+				display: inline-block;
+				height: 50px;
+				margin:5px 10px;
+
+				&.user-avatar {
+					width: 50px;
+					border-radius: 50%;
+					background: {
+						image:url(../img/rock.jpg);
+						repeat:no-repeat;
+						size:cover;
+					}
+				}
+
+				&.leave {
+					float:right;
+					padding-right: 30px;
+					line-height: 50px;
+					color:#fff;
+					font-size: 16px;
+					background: {
+						image:url(../img/arrow.png);
+						position: center right;
+						repeat:no-repeat;
+						size:30px 30px;
+					}
+					cursor:pointer;
+				}
+			}
+		}
+
+		.wrapper {
+			box-sizing: border-box;
+			width: 100%;
+			height: 540px;
+			padding:10px;
+			background: #f7f7f7;
+			border-bottom-left-radius: 6px;
+			border-bottom-right-radius: 6px;
+			margin-bottom: 20px;
+
+			@at-root {
+				@mixin main-block {
+					float: left;
+					height: 450px;
+				}
+
+				@mixin border {
+					border:1px solid #ccc;
+					border-radius:3px;
+				}
+
+				.paint {
+					@include main-block;
+					width:550px;
+					margin-right: 10px;
+
+					.hb {
+						@include border;
+						width: 100%;
+						height: 100%;
+						background: #fff;
+					}
+				}
+
+				.sidebar {
+					@include main-block;
+					width:220px;
+
+					.tools {
+						width:100%;
+
+						@at-root {
+							.colors {
+								width:100%;
+								height:60px;
+
+								.color {
+									display:block;
+									float: left;
+									width:30px;
+									height:30px;
+									margin:0;
+									padding:0;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -9,13 +9,58 @@
   <!-- 登陆层 -->
   <div id="loginDiv" class="loginDiv">
     <div class="mask"></div>
-    <div class="server">
-      <input type="text" id="host" value="127.0.0.1">
-    </div>
+    <input type="text" id="host" value="127.0.0.1" name="textfield">
+    <input type="text" id="tUser" placeholder="User Name" name="textfield">
+    <div class="btn" id="btnCon">Login In</div>
   </div>
   <!-- 主容器层 -->
   <div id="main" class="main">
-
+    <div class="header">
+      <span class="user-avatar"></span>
+      <span class="leave">离开房间</span>
+    </div>
+    <!-- 绘图层 -->
+    <div class="wrapper">
+      <!-- 绘图主层 -->
+      <div class="paint">
+        <div id="hb" class="hb">
+          <div id="effect"></div>
+          <canvas id="paintArea"></canvas>
+        </div>
+      </div>
+      <!-- 工具层和消息层 -->
+      <div class="sidebar">
+        <!-- 工具 -->
+        <div class="tools" id="operDiv">
+          <!-- 颜色 -->
+          <div class="colors" id="color">
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+            <span class="color"></span>
+          </div>
+          <!-- 画笔粗细 -->
+          <div class="pen" id="pen"></div>
+          <!-- 橡皮擦 -->
+          <div class="tb" id="ssx">
+            <div class="btnRub" id="btnRub"></div>
+            <div class="btnClear" id="btnClear"></div>
+          </div>
+        </div>
+        <!-- 消息 -->
+        <div class="msg" id="msgArea"></div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
