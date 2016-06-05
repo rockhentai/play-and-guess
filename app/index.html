@@ -25,7 +25,7 @@
       <div class="paint">
         <div id="hb" class="hb">
           <div id="effect"></div>
-          <canvas id="paintArea"></canvas>
+          <canvas id="paintArea" width="548" height="448"></canvas>
         </div>
       </div>
       <!-- 工具层和消息层 -->
@@ -38,10 +38,10 @@
           </div>
           <!-- 画笔粗细 -->
           <div class="pen" id="pen">
+            <!-- <div class="bwid"></div>
             <div class="bwid"></div>
             <div class="bwid"></div>
-            <div class="bwid"></div>
-            <div class="bwid"></div>
+            <div class="bwid"></div> -->
           </div>
           <!-- 橡皮擦 -->
           <div class="tb" id="ssx">
@@ -60,32 +60,36 @@
     </div>
   </div>
   <script src="js/jquery.js"></script>
-  <script src="js/client.js"></script>
+  <!-- <script src="js/client.js"></script> -->
   <script src="js/paint.js"></script>
   <script src="socket.io.js"></script>
   <script>
   $(function() {
-    alert('1')
+    //alert('1')
     //点击登陆
     $('#btnCon').click(function() {
       var host = $('#host').val(),
           user = $('#tUser').val();
 
-      Client.connect(host,9000);
-      Client.user.uname = user;
+      // Client.connect(host,9000);
+      // Client.user.uname = user;
+      //
+      // Client.login(function(data) {
+      //   //登陆成功
+      //   if(data === 1) {
+      //     alert("该用户已经存在，请更换用户名");
+      //   } else if(data === 2) {
+      //     alert("游戏正在进行中，请稍后登陆");
+      //   } else {
+      //     $('#loginDiv').hide();
+      //     $('#main').show();
+      //   }
+      // });
 
-      Client.login(function(data) {
-        //登陆成功
-        if(data === 1) {
-          alert("该用户已经存在，请更换用户名");
-        } else if(data === 2) {
-          alert("游戏正在进行中，请稍后登陆");
-        } else {
-          $('#loginDiv').hide();
-          $('#main').show();
-        }
-      });
+      $('#loginDiv').hide();
+      $('#main').show();
     });
+    //Painter.init();
 
     //发送消息
     $('#btnSendMsg').click(function() {

@@ -66,7 +66,8 @@ body {
 .loginDiv {
   width:280px;
   height: 320px;
-  @include box-block ;
+  @include box-block;
+	margin-top: 50px;
 
   .mask {
     width: 96px;
@@ -104,8 +105,9 @@ body {
 
 // main
 .main {
+	display: none;
 	width: 800px;
-	margin:0 auto;
+	margin:50px auto;
 	@include box-shadow;
 
 	@at-root {
@@ -224,6 +226,8 @@ body {
 
 								.bwid {
 									@include little-block;
+									background-position: center center;
+									background-repeat: no-repeat;
 								}
 							}
 
