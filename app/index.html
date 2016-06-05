@@ -34,33 +34,74 @@
         <div class="tools" id="operDiv">
           <!-- 颜色 -->
           <div class="colors" id="color">
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
-            <span class="color"></span>
+
           </div>
           <!-- 画笔粗细 -->
-          <div class="pen" id="pen"></div>
+          <div class="pen" id="pen">
+            <div class="bwid"></div>
+            <div class="bwid"></div>
+            <div class="bwid"></div>
+            <div class="bwid"></div>
+          </div>
           <!-- 橡皮擦 -->
           <div class="tb" id="ssx">
             <div class="btnRub" id="btnRub"></div>
-            <div class="btnClear" id="btnClear"></div>
+            <div class="btnRub" id="btnClear"></div>
           </div>
         </div>
         <!-- 消息 -->
         <div class="msg" id="msgArea"></div>
+        <!-- 发送 -->
+        <div class="inputGroup">
+          <input type="text" id="textMsg" class="textMsg" placeholder="input some message">
+          <span id="btnSendMsg" class="btn">Send</span>
+        </div>
       </div>
     </div>
   </div>
+  <script src="js/jquery.js"></script>
+  <script src="js/client.js"></script>
+  <script src="js/paint.js"></script>
+  <script src="socket.io.js"></script>
+  <script>
+  $(function() {
+    alert('1')
+    //点击登陆
+    $('#btnCon').click(function() {
+      var host = $('#host').val(),
+          user = $('#tUser').val();
+
+      Client.connect(host,9000);
+      Client.user.uname = user;
+
+      Client.login(function(data) {
+        //登陆成功
+        if(data === 1) {
+          alert("该用户已经存在，请更换用户名");
+        } else if(data === 2) {
+          alert("游戏正在进行中，请稍后登陆");
+        } else {
+          $('#loginDiv').hide();
+          $('#main').show();
+        }
+      });
+    });
+
+    //发送消息
+    $('#btnSendMsg').click(function() {
+      var txt = $('#textMsg').val();
+      Client.sendMsg(txt);
+      $('#textMsg').val('');
+    });
+
+    $('#textMsg').on('keydown',function(e) {
+      if(e.keyCode == 13) {
+        var txt = $('#textMsg').val();
+        Client.sendMsg(txt);
+        $('#textMsg').val('');
+      }
+    })
+  })
+  </script>
 </body>
 </html>
