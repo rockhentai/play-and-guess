@@ -34,9 +34,10 @@
       var bDiv = $('#color');
       var self = this;
       for(var i=0;i<bColor.length;i++) {
-        var b = $("<span class='color'></span>").css('background',bColor[i]);
+        var b = $("<span class='color'></span>").css('background-color',bColor[i]);
         b.on('click',function(e) {
-          self.fire('onPaintUpdate',{'color':$(this).css('background')});
+          console.log($(this).css('background-color'));
+          self.fire('onPaintUpdate',{'color':$(this).css('background-color')});
         });
         bDiv.append(b);
       }
@@ -53,7 +54,116 @@
     },
 
     initEraser:function() {
-      
+      var self = this;
+      //绑定清楚屏幕事件
+      $('#btnClear').click(function(e) {
+        self.clear();
+      });
+      //擦除
+      $('#btnRub').click(function(e) {
+        self.setBrushColor('white');
+        self.setBrushWidth(32);
+      });
+    },
+
+    //设置背景
+    setBGColor:function(color) {
+      this.ctx.fillStyle = color || 'white';
+      this.ctx.fillRect(0,0,this.w,this.h);
+    },
+
+    //设置画笔颜色
+    setBrushColor:function(color) {
+      //alert(1);
+      this.bColor = color || 'black';
+      // console.log(this.bColor);
+      this.ctx.strokeStyle = this.bColor;
+    },
+
+    //设置画笔宽度
+    setBrushWidth:function(width) {
+      this.bWidth = width || 1;
+      this.ctx.lineWidth = this.bWidth;
+    },
+
+    //初始化画板
+    initCanvas:function() {
+      var can = $('#paintArea');
+      var self = this;
+
+      //鼠标按下
+      can.on('mousedown',function(e) {
+        // if(!Client.isOperUser) {
+        //   return;
+        // }
+
+        e.preventDefault();
+        this.x = e.offsetX;
+        this.y = e.offsetY;
+        //console.log(self.bColor);
+        self.fire('onStartDraw',{'x':this.x,'y':this.y});
+        //鼠标移动
+        can.on('mousemove',function(e) {
+
+          var nx = e.offsetX;
+          var ny = e.offsetY;
+          self.fire('onDrawing',{'x':nx,'y':ny});
+          this.x = nx;
+          this.y = ny;
+        });
+
+        //鼠标抬起
+        can.on('mouseup',function() {
+          can.off('mousemove');
+          self.fire('onDrawEnd');
+        });
+      });
+    },
+
+    clear:function() {
+      this.ctx.clearRect(0,0,this.w,this.h);
+    },
+
+    fire:function(eventName,param) {
+      if(this[eventName]) {
+        this[eventName](param);
+      }
+    },
+
+    //开始画画
+    onStartDraw:function(data) {
+      this.status = 0;
+      this.ctx.beginPath();
+      this.ctx.moveTo(data.x,data.y);
+      // if(Client.isOperUser()) {
+      //   Client.emitStarDraw(data);
+      // }
+    },
+
+    //画画事件
+    onDrawing:function(data) {
+      if(this.status == 0) {
+        this.status = 1;
+      }
+      this.ctx.lineTo(data.x,data.y);
+      this.ctx.stroke();
+      // if(Client.isOperUser()) {
+      //   Client.emitDrawing(data);
+      // }
+    },
+
+    onPaintUpdate:function(data) {
+      var w = data.width || this.bWidth,
+          c = data.color || this.bColor;
+      var param = {'width':w,'color':c};
+      this.setBrushWidth(w);
+      this.setBrushColor(c);
+      //发送画板更新事件
+      // if(Client.isOperUser()) {
+      //   Client.emitPaintUpdate(param);
+      // }
     }
   }
+  Painter.init();
+  window.Painter = Painter;
 }())

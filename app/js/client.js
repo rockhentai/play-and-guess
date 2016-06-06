@@ -67,7 +67,62 @@
 
     //处理画画更新事件
     this.so.on('drawing',function(data) {
-      self.sraw(data);
-    })
+      self.drawing(data);
+    });
+
+    this.so.on('paintUpdate',function(data) {
+      self.paintUpdate(data);
+    });
+
+    this.so.on('updateUserInfo',function(data) {
+      self.doUpdateUserInfo(data);
+    });
+
+    this.so.on('questionReady',function(data) {
+      self.doQuestionReady(data);
+    });
+
+    this.so.on('startQuestion',function(data) {
+      self.doStartQuestion(data);
+    });
+
+    this.so.on('processQuestion',function(data) {
+      self.doProcessQuestion(data);
+    });
+
+    this.so.on('hint',function(data) {
+      self.doHint(data);
+    });
+
+    this.so.on('award',function(data) {
+      self.doAward(data);
+    });
+
+    this.so.on('endquestion',function(data) {
+      self.doEndquestion(data);
+    });
+
+    this.so.on('gameover',function(data) {
+      self.doGameover(data);
+    });
+  }
+
+  Client.doMessage = function(msg) {
+    $('#msgArea').append(msg).append('<br />');
+    $('#msgArea').scrollTop($('#msgArea')[0].scrollHeight);
+  }
+
+  Client.updateUser = function(user,idx) {
+    var self = this;
+    if(user.uname == this.user.uname) {
+      this.user = user;
+    }
+
+    // 创建用户UI
+    var px = $("<div id='ulx' class='ulx'></div>");
+    var ud = $("<div id='u_" + user.uname + "' class='uready'><div id='aw_" + user.uname + "' class='award'></div></div>");
+    var glev = $("<div id='uc_'" + user.uname + "' class='ugo'></div>");
+
+    px.append("<div style='overflow:hidden'>" + user.uname + "</div>").append(ud).append(glev);
   }
 }())
