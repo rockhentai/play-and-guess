@@ -61,7 +61,7 @@
     </div>
   </div>
   <script src="js/jquery.js"></script>
-  <!-- <script src="js/client.js"></script> -->
+  <script src="js/client.js"></script>
   <script src="js/paint.js"></script>
   <script src="socket.io.js"></script>
   <script>
@@ -72,25 +72,25 @@
       var host = $('#host').val(),
           user = $('#tUser').val();
 
-      // Client.connect(host,9000);
-      // Client.user.uname = user;
-      //
-      // Client.login(function(data) {
-      //   //登陆成功
-      //   if(data === 1) {
-      //     alert("该用户已经存在，请更换用户名");
-      //   } else if(data === 2) {
-      //     alert("游戏正在进行中，请稍后登陆");
-      //   } else {
-      //     $('#loginDiv').hide();
-      //     $('#main').show();
-      //   }
-      // });
+      Client.connect(host,9000);
+      Client.user.uname = user;
+
+      Client.login(function(data) {
+        //登陆成功
+        if(data === 1) {
+          alert("该用户已经存在，请更换用户名");
+        } else if(data === 2) {
+          alert("游戏正在进行中，请稍后登陆");
+        } else {
+          $('#loginDiv').hide();
+          $('#main').show();
+        }
+      });
 
       $('#loginDiv').hide();
       $('#main').show();
     });
-    //Painter.init();
+    Painter.init();
 
     //发送消息
     $('#btnSendMsg').click(function() {
