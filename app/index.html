@@ -17,6 +17,11 @@
   <div id="main" class="main">
     <div class="header">
       <span class="user-avatar"></span>
+      <span id="dround">第0/2轮</span>
+      <span id="question">
+        请按照题目画图，题目是：
+        <span style="color:red">老虎</span>
+      </span>
       <span class="leave">Leave the Room</span>
     </div>
     <!-- 绘图层 -->
@@ -24,10 +29,18 @@
       <!-- 绘图主层 -->
       <div class="paint">
         <div id="hb" class="hb">
-          <div id="effect"></div>
+          <div id="effect">10</div>
           <canvas id="paintArea" width="548" height="448"></canvas>
         </div>
-        <div id="userArea"></div>
+        <div id="userArea">
+          <div id="ulx" class="ulx">
+            <div>12</div>
+            <div class="uoper">
+              <div class="award"></div>
+            </div>
+            <div class="ugo">0</div>
+          </div>
+        </div>
       </div>
       <!-- 工具层和消息层 -->
       <div class="sidebar">
@@ -60,10 +73,11 @@
       </div>
     </div>
   </div>
+  <div id="msg">正确答案是：sdfs</div>
   <script src="js/jquery.js"></script>
   <script src="js/client.js"></script>
   <script src="js/paint.js"></script>
-  <script src="socket.io.js"></script>
+  <script src="js/socket.io.js"></script>
   <script>
   $(function() {
     //alert('1')
@@ -72,25 +86,25 @@
       var host = $('#host').val(),
           user = $('#tUser').val();
 
-      Client.connect(host,9000);
-      Client.user.uname = user;
+      // Client.connect(host,9000);
+      // Client.user.uname = user;
 
-      Client.login(function(data) {
+      //Client.login(function(data) {
         //登陆成功
-        if(data === 1) {
-          alert("该用户已经存在，请更换用户名");
-        } else if(data === 2) {
-          alert("游戏正在进行中，请稍后登陆");
-        } else {
-          $('#loginDiv').hide();
-          $('#main').show();
-        }
-      });
+      //   if(data === 1) {
+      //     alert("该用户已经存在，请更换用户名");
+      //   } else if(data === 2) {
+      //     alert("游戏正在进行中，请稍后登陆");
+      //   } else {
+      //     $('#loginDiv').hide();
+      //     $('#main').show();
+      //   }
+      // });
 
       $('#loginDiv').hide();
       $('#main').show();
     });
-    Painter.init();
+    //Painter.init();
 
     //发送消息
     $('#btnSendMsg').click(function() {

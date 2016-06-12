@@ -8,7 +8,7 @@
     gameInfo:{'user':null}
   };
 
-  Client.connect = function(host,post) {
+  Client.connect = function(host,port) {
     var p = port || 80;
     var self = this;
 
@@ -22,8 +22,9 @@
         });
 
         this.so.on('error',function(data) {
+          //console.log(self.so);
           this.so = null;
-          alert('服务器连接失败')；
+          alert('服务器连接失败');
         });
       }
     } else {
@@ -36,7 +37,7 @@
   }
 
   //登陆
-  Client.login = function() {
+  Client.login = function(callback) {
     this.so.emit('login',{'uname':this.user.uname},function(data) {
       callback(data);
     });

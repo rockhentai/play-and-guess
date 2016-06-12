@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>你画我猜</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <!-- 登陆层 -->
+  <div id="loginDiv" class="loginDiv">
+    <div class="mask"></div>
+    <input type="text" id="host" value="127.0.0.1" name="textfield">
+    <input type="text" id="tUser" placeholder="User Name" name="textfield">
+    <div class="btn" id="btnCon">Login In</div>
+  </div>
+  <!-- 主容器层 -->
+  <div id="main" class="main">
+    <div class="header">
+      <span class="user-avatar"></span>
+      <span id="dround"></span>
+      <span id="question"></span>
+      <span class="leave">Leave the Room</span>
+    </div>
+    <!-- 绘图层 -->
+    <div class="wrapper">
+      <!-- 绘图主层 -->
+      <div class="paint">
+        <div id="hb" class="hb">
+          <div id="effect"></div>
+          <canvas id="paintArea" width="548" height="448"></canvas>
+        </div>
+        <div id="userArea"></div>
+      </div>
+      <!-- 工具层和消息层 -->
+      <div class="sidebar">
+        <!-- 工具 -->
+        <div class="tools" id="operDiv">
+          <!-- 颜色 -->
+          <div class="colors" id="color">
+
+          </div>
+          <!-- 画笔粗细 -->
+          <div class="pen" id="pen">
+            <!-- <div class="bwid"></div>
+            <div class="bwid"></div>
+            <div class="bwid"></div>
+            <div class="bwid"></div> -->
+          </div>
+          <!-- 橡皮擦 -->
+          <div class="tb" id="ssx">
+            <div class="btnRub" id="btnRub"></div>
+            <div class="btnRub" id="btnClear"></div>
+          </div>
+        </div>
+        <!-- 消息 -->
+        <div class="msg" id="msgArea"></div>
+        <!-- 发送 -->
+        <div class="inputGroup">
+          <input type="text" id="textMsg" class="textMsg" placeholder="input some message">
+          <span id="btnSendMsg" class="btn">Send</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="msg"></div>
+  <script src="js/jquery.js"></script>
+  <script src="js/client.js"></script>
+  <script src="js/paint.js"></script>
+  <script src="js/socket.io.js"></script>
+  <script>
+  $(function() {
+    //alert('1')
+    //点击登陆
+    $('#btnCon').click(function() {
+      var host = $('#host').val(),
+          user = $('#tUser').val();
+
+      Client.connect(host,9000);
+      Client.user.uname = user;
+
+      Client.login(function(data) {
+        //登陆成功
+        if(data === 1) {
+          alert("该用户已经存在，请更换用户名");
+        } else if(data === 2) {
+          alert("游戏正在进行中，请稍后登陆");
+        } else {
+          $('#loginDiv').hide();
+          $('#main').show();
+        }
+      });
+
+      // $('#loginDiv').hide();
+      // $('#main').show();
+    });
+    //Painter.init();
+
+    //发送消息
+    $('#btnSendMsg').click(function() {
+      var txt = $('#textMsg').val();
+      Client.sendMsg(txt);
+      $('#textMsg').val('');
+    });
+
+    $('#textMsg').on('keydown',function(e) {
+      if(e.keyCode == 13) {
+        var txt = $('#textMsg').val();
+        Client.sendMsg(txt);
+        $('#textMsg').val('');
+      }
+    })
+  })
+  </script>
+</body>
+</html>
